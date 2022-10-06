@@ -8,9 +8,10 @@
  * 
  * For further inquiries, please contact DNAnalyzer@piyushacharya.com
  */
-
 package DNAnalyzer;
 
+import static DNAnalyzer.AminoAcidMapping.getAminoAcidMapping;
+import static DNAnalyzer.AminoAcidMapping.getNameFromEnum;
 import java.io.IOException;
 import java.util.List;
 import java.util.HashMap;
@@ -18,39 +19,44 @@ import java.util.Map;
 
 /**
  * Prints the list of proteins and their respective properties found in the DNA.
- * 
+ *
  * @author Piyush Acharya (@Verisimilitude11)
  * @author Nishant Vikramaditya (@Nv7-GitHub)
  * @version 1.2.1
  */
 public class Properties {
 
-    private static final String DASH_LINE_SPACER 
-        = "----------------------------------------------------";
+    private static final String DASH_LINE_SPACER
+            = "----------------------------------------------------";
     private static final String NEWLINE = System.lineSeparator();
+
     /**
      * Prints the list of proteins found in the DNA.
-     * 
+     *
      * @category Output
      * @param proteinList The list of proteins to be printed
-     * @param aminoAcid   The amino acid to be searched for
+     * @param aminoAcid The amino acid to be searched for
      * @throws InterruptedException
      * @throws IOException
      */
     public static void printProteinList(List<String> proteinList, final String aminoAcid) {
 
+        String aminoAcidFullName;
+
         try {
             // Get an enum of AminoAcidNames. getAminoAcidMapping accepts 1 letter abbreviation, 
             // 3 letter abbriavtion, and full name of amino acid.
             final AminoAcidNames aminoAcidEnum = getAminoAcidMapping(aminoAcid);
-            String aminoAcidFullName = getNameFromEnum(aminoAcidEnum);
+            aminoAcidFullName = getNameFromEnum(aminoAcidEnum);
         } catch (IllegalStateException e) {
-            String aminoAcidFullName = "Invalid amino acid";
+            aminoAcidFullName = "Invalid amino acid";
         }
 
-        if (aminoAcidFullName == null) {aminoAcidFullName = "Invalid amino acid";}
+        if (aminoAcidFullName == null) {
+            aminoAcidFullName = "Invalid amino acid";
+        }
 
-        System.out.println("Proteins coded for " + aminoAcidFullName + ": "+NEWLINE+DASH_LINE_SPACER+NEWLINE);
+        System.out.println("Proteins coded for " + aminoAcidFullName + ": " + NEWLINE + DASH_LINE_SPACER + NEWLINE);
         short count = 1;
         for (final String gene : proteinList) {
             System.out.println(count + ". " + gene);
@@ -60,8 +66,9 @@ public class Properties {
 
     /**
      * Gets the GC content of a gene.
-     * 
-     * @see "https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/gc-content"
+     *
+     * @see
+     * "https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/gc-content"
      * @category Properties
      * @param dna The DNA sequence to be analyzed
      * @return The GC content of the DNA sequence
@@ -80,10 +87,10 @@ public class Properties {
 
     /**
      * Formats the nucleotide sequence into a readable format.
-     * 
+     *
      * @category Output
-     * @param dna        The DNA sequence that was analyzed
-     * @param count      The count of the nucleotide in the DNA sequence
+     * @param dna The DNA sequence that was analyzed
+     * @param count The count of the nucleotide in the DNA sequence
      * @param nucleotide The nucleotide that was searched for
      */
     private static void formatNucleotideCount(final String dna, final int count, final String nucleotide) {
@@ -92,10 +99,11 @@ public class Properties {
 
     /**
      * Counts the number of nucleotides in the DNA sequence.
-     * 
+     *
      * @category Properties
      * @param dna sequence
-     * @return The mapping between the nucleotides and their count in given DNA sequence.
+     * @return The mapping between the nucleotides and their count in given DNA
+     * sequence.
      */
     private static Map<Character, Integer> countNucleotides(final String dna) {
         final Map<Character, Integer> nucleotidesCount = new HashMap<>(Map.of('a', 0, 't', 0, 'g', 0, 'c', 0));
@@ -108,7 +116,7 @@ public class Properties {
 
     /**
      * Prints the nucleotide count of the DNA sequence.
-     * 
+     *
      * @category Output
      * @param dna The DNA sequence that was analyzed
      */
@@ -123,7 +131,7 @@ public class Properties {
 
     /**
      * Checks if the DNA sequence is random or not.
-     * 
+     *
      * @category Properties
      * @param dna The DNA sequence that was analyzed
      * @return Whether the DNA sequence is random or not
@@ -142,7 +150,9 @@ public class Properties {
     }
 
     /**
-     * Calculates the percentage of given amount of nucleotide in the dna sequence/
+     * Calculates the percentage of given amount of nucleotide in the dna
+     * sequence/
+     *
      * @param nucleotideCount
      * @param dna
      * @return
