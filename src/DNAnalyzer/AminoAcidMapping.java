@@ -19,6 +19,29 @@ package DNAnalyzer;
  */
 public class AminoAcidMapping {
 
+    private static final EnumMap<AminoAcidNames,String> aminoAcidNamesEnumMap = new EnumMap<>(Map.ofEntries(
+        Map.entry(ISOLEUCINE, "Isoleucine"),
+        Map.entry(LEUCINE, "Leucine"),
+        Map.entry(VALINE, "Valine"),
+        Map.entry(PHENYLALANINE, "Phenylalanine"),
+        Map.entry(METHIONINE, "Methionine"),
+        Map.entry(CYSTEINE, "Cysteine"),
+        Map.entry(ALANINE, "Alanine"),
+        Map.entry(GLYCINE, "Glycine"),
+        Map.entry(PROLINE, "Proline"),
+        Map.entry(THREONINE, "Threonine"),
+        Map.entry(SERINE, "Serine"),
+        Map.entry(TYROSINE, "Tyrosine"),
+        Map.entry(TRYPTOPHAN, "Tryptophan"),
+        Map.entry(GLUTAMINE, "Glutamine"),
+        Map.entry(ASPARAGINE, "Asparagine"),
+        Map.entry(HISTIDINE, "Histidine"),
+        Map.entry(GLUTAMIC_ACID, "Glutamic acid"),
+        Map.entry(ASPARTIC_ACID, "Aspartic acid"),
+        Map.entry(LYSINE, "Lysine"),
+        Map.entry(ARGININE, "Arginine")
+    ));
+
     /**
      * @param aminoAcid name of amino acid
      * @return AminoAcidName Enum mapping for given aminoAcid name
@@ -88,5 +111,14 @@ public class AminoAcidMapping {
             }
             default -> throw new IllegalStateException("Invalid Amino Acid: " + aminoAcid);
         }
+    }
+
+    /**
+     * This method returns the amino acid full name when passed its corresponding enum AminoAcidNames
+     * @param aminoEnum the enum AminoAcidNames whose name is desired
+     * @return the name of the amino acid as a String
+     */
+    public static String getNameFromEnum(AminoAcidNames aminoEnum){
+        return aminoAcidNamesEnumMap.get(aminoEnum);
     }
 }
